@@ -56,6 +56,13 @@
     <version>1.3.3</version>
 </dependency>
 
+<!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+<dependency>
+    <groupId>org.jsoup</groupId>
+    <artifactId>jsoup</artifactId>
+    <version>1.10.2</version>
+</dependency>
+
 		<!-- Used for fetching HTML elements within pages -->
 
 		<!-- Used to fetch the actual pages -->

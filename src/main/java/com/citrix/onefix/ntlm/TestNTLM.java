@@ -1,6 +1,8 @@
 package com.citrix.onefix.ntlm;
 
+import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.io.StringWriter;
 
 import org.apache.http.auth.AuthSchemeProvider;
 import org.apache.http.auth.AuthScope;
@@ -20,6 +22,9 @@ import org.apache.http.impl.auth.SPNegoSchemeFactory;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 public class TestNTLM {
 
@@ -34,7 +39,7 @@ public class TestNTLM {
 		        .build();
 
 		
-		NTCredentials credentials = new NTCredentials("boch", "*****", null, "citrite");
+		NTCredentials credentials = new NTCredentials("boch", "****", null, "citrite");
 		CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
 		credentialsProvider.setCredentials(AuthScope.ANY, credentials);
 
@@ -43,12 +48,16 @@ public class TestNTLM {
 		        .setDefaultCredentialsProvider(credentialsProvider)
 		        .build();
 
-		HttpUriRequest req = new HttpGet("http://onefix.eng.citrite.net");
+		HttpUriRequest req = new HttpGet("http://www.bing.com");
 		
 		
 		CloseableHttpResponse rep = httpClient.execute(req);
-		System.out.println(rep.getEntity().getContentLength());
-		rep.getEntity().writeTo(System.out);
+		String result = EntityUtils.toString(rep.getEntity()); 		
+		System.out.println(result);
+		
+		Document doc  = Jsoup.parse(result);
+		System.out.println(doc.title());
+		
 	}
 
 }
